@@ -22,9 +22,9 @@ class Cloudy : Weather {
 }
 data class City(val name: String, val weather: Weather)
 
-// Klasa główna aplikacji
+
 class WeatherApp {
-    private val cities = listOf(
+    val cities = listOf(
         City("Warszawa", Sunny()),
         City("Kraków", Rainy()),
         City("Gdańsk", Cloudy()),
@@ -49,4 +49,17 @@ class WeatherApp {
             println("Nieprawidłowy wybór miasta.")
         }
     }
+}
+fun main() {
+    val app = WeatherApp()
+
+
+    app.displayCities()
+
+
+    println("\nWybierz numer miasta (1-${app.cities.size}):")
+    val userChoice = readLine()?.toIntOrNull() ?: 0
+
+
+    app.showWeather(userChoice)
 }
