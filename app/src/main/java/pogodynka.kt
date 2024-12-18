@@ -5,7 +5,7 @@ interface Weather {
 
 class Sunny : Weather {
     override fun getForecast(): String {
-        return "Dzisiaj będzie słonecznie! Idealny dzień na spacer."
+        return "Dzisiaj be2dzie slonecznie! Idealny dzien na spacer."
     }
 }
 
@@ -17,7 +17,7 @@ class Rainy : Weather {
 
 class Cloudy : Weather {
     override fun getForecast(): String {
-        return "Dzisiaj będzie pochmurno. Może padać deszcz."
+        return "Dzisiaj bedzie pochmurno. Moze padac deszcz."
     }
 }
 data class City(val name: String, val weather: Weather)
@@ -26,10 +26,10 @@ data class City(val name: String, val weather: Weather)
 class WeatherApp {
     val cities = listOf(
         City("Warszawa", Sunny()),
-        City("Kraków", Rainy()),
-        City("Gdańsk", Cloudy()),
-        City("Poznań", Sunny()),
-        City("Wrocław", Cloudy())
+        City("Krakow", Rainy()),
+        City("Gdansk", Cloudy()),
+        City("Poznan", Sunny()),
+        City("Wroclaw", Cloudy())
     )
 
 
@@ -46,7 +46,7 @@ class WeatherApp {
             val city = cities[cityIndex - 1]
             println("Prognoza pogody dla miasta ${city.name}: ${city.weather.getForecast()}")
         } else {
-            println("Nieprawidłowy wybór miasta.")
+            println("Nieprawidlowy wybor miasta.")
         }
     }
 }
