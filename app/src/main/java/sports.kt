@@ -41,3 +41,87 @@ class SportsResultsAnalyzer {
         }
     }
 }
+fun main() {
+    val analyzer = SportsResultsAnalyzer()
+
+    while (true) {
+        println("\nCo chcesz zrobic?")
+        println("1. Dodac wynik meczu")
+        println("2. Wyswietlic wszystkie wyniki")
+        println("3. Filtrowac wyniki powyzej okreslonego progu")
+        println("4. Dodac bonusowe punkty do wszystkich wynikow")
+        println("5. Obliczyc sume wynikow")
+        println("6. Obliczyc maksymalny wynik")
+        println("7. Obliczyc roznice miedzy maksymalnym a minimalnym wynikiem")
+        println("8. Zliczyc mecze powyzej okreslonego progu")
+        println("9. Zakonczyc")
+        print("Wybierz opcje (1-9): ")
+
+        when (readLine()?.toIntOrNull()) {
+            1 -> {
+                print("Podaj wynik meczu: ")
+                val score = readLine()?.toIntOrNull()
+                if (score != null) {
+                    analyzer.addMatchResult(score)
+                    println("Wynik $score dodany!")
+                } else {
+                    println("Niepoprawny wynik. Sprobuj ponownie.")
+                }
+            }
+            2 -> {
+                analyzer.printResults()
+            }
+            3 -> {
+                print("Podaj prog: ")
+                val threshold = readLine()?.toIntOrNull()
+                if (threshold != null) {
+                    val filteredResults = analyzer.filterResultsAboveThreshold(threshold)
+                    println("\nWyniki powyzej $threshold punktow:")
+                    filteredResults.forEach { println("Wynik: ${it.score}") }
+                } else {
+                    println("Niepoprawna wartosc progu. Sprobuj ponownie.")
+                }
+            }
+            4 -> {
+                print("Podaj liczbe bonusowych punktow: ")
+                val bonus = readLine()?.toIntOrNull()
+                if (bonus != null) {
+                    analyzer.addBonusPoints(bonus)
+                    println("Dodano $bonus bonusowych punktow do kazdego wyniku!")
+                } else {
+                    println("Niepoprawna liczba bonusowych punktow. Sprobuj ponownie.")
+                }
+            }
+            5 -> {
+                println("Suma wynikow: ${analyzer.sumResults()}")
+            }
+            6 -> {
+                println("Maksymalny wynik: ${analyzer.maxResult()}")
+            }
+            7 -> {
+                val diff = analyzer.scoreDifference()
+                if (diff != null) {
+                    println("Roznica miedzy maksymalnym a minimalnym wynikiem: $diff")
+                } else {
+                    println("Brak wystarczajacych danych do obliczenia roznicy.")
+                }
+            }
+            8 -> {
+                print("Podaj prog: ")
+                val threshold = readLine()?.toIntOrNull()
+                if (threshold != null) {
+                    println("Liczba meczow powyzej $threshold punktow: ${analyzer.countMatchesAboveThreshold(threshold)}")
+                } else {
+                    println("Niepoprawna wartosc progu. Sprobuj ponownie.")
+                }
+            }
+            9 -> {
+                println("Koniec programu.")
+                break
+            }
+            else -> {
+                println("Niepoprawny wybor. Wybierz opcje od 1 do 9.")
+            }
+        }
+    }
+}
