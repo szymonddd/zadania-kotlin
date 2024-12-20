@@ -1,49 +1,30 @@
 import java.util.Scanner
 
-data class Book(
-    val title: String,
-    val author: String,
-    val year: Int
-)
+data class Book(val title: String, val author: String, val year: Int)
 
 class BookTracker {
     private val books = mutableListOf<Book>()
 
 
-    fun addBook(title: String, author: String, year: Int) {
-        books.add(Book(title, author, year))
-    }
+    fun addBook(title: String, author: String, year: Int) = books.add(Book(title, author, year))
 
+    fun displayBooks() =
+        if (books.isEmpty()) println("Brak ksiazek w bazie.")
+        else books.forEach { println("Tytul: ${it.title}, Autor: ${it.author}, Rok wydania: ${it.year}") }
 
-    fun displayBooks() {
-        if (books.isEmpty()) {
-            println("Brak ksiazek w bazie.")
-        } else {
-            books.forEach { println("Tytul: ${it.title}, Autor: ${it.author}, Rok wydania: ${it.year}") }
-        }
-    }
+    fun filterByAuthor(author: String) =
+        books.filter { it.author.equals(author, ignoreCase = true) }
+            .takeIf { it.isNotEmpty() }
+            ?.forEach { println(it) }
+            ?: println("Brak ksiazek autora '$author'.")
 
-    fun filterByAuthor(author: String) {
-        val filteredBooks = books.filter { it.author.equals(author, ignoreCase = true) }
-        if (filteredBooks.isEmpty()) {
-            println("Brak ksiazek autora '$author'.")
-        } else {
-            filteredBooks.forEach { println(it) }
-        }
-    }
+    fun filterByYear(year: Int) =
+        books.filter { it.year == year }
+            .takeIf { it.isNotEmpty() }
+            ?.forEach { println(it) }
+            ?: println("Brak ksiazek wydanych w $year.")
 
-    fun filterByYear(year: Int) {
-        val filteredBooks = books.filter { it.year == year }
-        if (filteredBooks.isEmpty()) {
-            println("Brak ksiazek wydanych w $year.")
-        } else {
-            filteredBooks.forEach { println(it) }
-        }
-    }
-
-    fun sortBooks() {
-        books.sortedBy { it.title }.forEach { println(it) }
-    }
+    fun sortBooks() = books.sortedBy { it.title }.forEach { println(it) }
 }
 
 fun main() {
